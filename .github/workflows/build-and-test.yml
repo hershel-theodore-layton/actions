@@ -4,7 +4,7 @@ on:
   pull_request:
 jobs:
   build:
-    name: 'Skip: ${{matrix.skip}} (${{matrix.os}})'
+    name: 'Skip: ${{matrix.skip}} (${{matrix.hhvm}})'
     strategy:
       fail-fast: false
       matrix:
