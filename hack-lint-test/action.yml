@@ -9,10 +9,7 @@ inputs:
     required: false
     default: false
   lint_engine:
-    description: >
-      Optional. Can either be "hhast" or "pha", defaults to "hhast".
-      "hhast" will invoke vendor/hhvm/hhast/bin/hhast-lint
-      "pha" will invoke vendor/hershel-theodore-layton/portable-hack-ast-linters-server/bin/portable-hack-ast-linters-server-bundled.resource
+    description: "syntax???"
     required: false
     default: "hhast"
   lint_args: "Optional. Command line arguments for your linter."
