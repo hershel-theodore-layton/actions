@@ -33,6 +33,8 @@
 set -ex
 
 if [ ! -f /usr/local/bin/watchman ]; then
+  id
+  whoami
   mkdir -p .var/tmp-directory-delete-me
   cp install-hack/watchman-v2024.04.15.00-linux.zip .var/tmp-directory-delete-me/watchman.zip
 
