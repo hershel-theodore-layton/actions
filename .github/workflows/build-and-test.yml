@@ -8,9 +8,13 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ ubuntu, macos ]
-        skip: [ true, false ]
-    runs-on: ${{matrix.os}}-latest
+        os: [ubuntu]
+        hhvm:
+          - "4.102"
+          - "4.128"
+          - "4.153"
+          - "4.168"
+    runs-on: ${{matrix.os}}-20.04
     steps:
       - uses: actions/checkout@v2
       # No way to set working directory for a GitHub Action :(
