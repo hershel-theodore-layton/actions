@@ -34,15 +34,6 @@ if [ "$OS" = "Linux" ]; then
     fi
   fi
 
-elif [ "$OS" = "Darwin" ]; then
-  brew update
-  brew tap hhvm/hhvm
-  if [ "$1" = "latest" ]; then
-    brew install hhvm
-  else
-    brew install "hhvm-$1"
-  fi
-
 else
   echo "Unknown OS: $OS"
   echo "::endgroup::"
