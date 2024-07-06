@@ -61,16 +61,14 @@ runs:
     - name: Generate autoload map
       shell: bash
       run: |
-        if [ -n "${{inputs.hhvm_flags}}" ]; then
-          echo "::group::Generate autoload map"
-          hhvm --php ${{inputs.hhvm_flags}} -r "echo (\function_exists('HH\Facts\enabled') && \HH\Facts\enabled() ? 'Using ext_watchman' : 'Using hhvm-autoload');"
-          (
-            set -x
-            hhvm ${{inputs.hhvm_flags}} vendor/hhvm/hhvm-autoload/bin/hh-autoload
-          )
-          cat vendor/autoload.hack
-          echo "::endgroup::"
-        fi
+        echo "::group::Generate autoload map"
+        hhvm --php ${{inputs.hhvm_flags}} -r "echo (\function_exists('HH\Facts\enabled') && \HH\Facts\enabled() ? 'Using ext_watchman' : 'Using hhvm-autoload');"
+        (
+          set -x
+          hhvm ${{inputs.hhvm_flags}} vendor/hhvm/hhvm-autoload/bin/hh-autoload
+        )
+        cat vendor/autoload.hack
+        echo "::endgroup::"
     - name: Typecheck
       shell: bash
       run: |
