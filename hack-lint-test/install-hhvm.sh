@@ -25,7 +25,7 @@ if [ "$OS" = "Linux" ]; then
     sudo apt-get install -y hhvm
   else
     HHVM_VERSION=`hhvm --php -r "echo HHVM_VERSION_MAJOR . '.' . HHVM_VERSION_MINOR;"`
-    if [ "$HHVM_VERSION" -ne "$1" ]; then
+    if [ "$HHVM_VERSION" != "$1" ]; then
       DISTRO=$(lsb_release --codename --short)
       sudo add-apt-repository \
         "deb https://dl.hhvm.com/ubuntu ${DISTRO}-$1 main"
