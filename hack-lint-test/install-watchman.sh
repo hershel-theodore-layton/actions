@@ -45,3 +45,5 @@ cp bin/* /usr/local/bin
 cp lib/* /usr/local/lib
 chmod 755 /usr/local/bin/watchman
 chmod 2777 /usr/local/var/run/watchman
+cd ../..
+rm -rf .var/tmp-directory-delete-me
