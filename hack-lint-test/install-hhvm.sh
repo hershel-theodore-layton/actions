@@ -1,6 +1,7 @@
 #!/bin/sh
 #
-# Copyright (c) 2017-present, Facebook, Inc.
+# Copyright (c) 2017-2022, Facebook, Inc.
+# Copyright (c) 2024,      Hershel Theodore Layton
 # All rights reserved.
 #
 # This source code is licensed under the MIT license found in the
