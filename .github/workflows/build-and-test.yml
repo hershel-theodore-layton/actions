@@ -1,3 +1,7 @@
+# Copyright (c) 2024, Hershel Theodore Layton
+# Copies of this file can be made, with or without changes,
+# under the terms of the MIT-0 license.
+
 name: Continuous Integration
 on:
   push:
@@ -8,14 +12,13 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu]
         skip: [true, false]
         hhvm:
           - "4.102"
           - "4.128"
           - "4.153"
           - "4.168"
-    runs-on: ${{matrix.os}}-20.04
+    runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v2
       # No way to set working directory for a GitHub Action :(
@@ -38,3 +41,4 @@ jobs:
           hhvm: ${{matrix.hhvm}}
           skip_lint: ${{matrix.skip}}
           skip_tests: ${{matrix.skip}}
+          lint_engine: hhast
