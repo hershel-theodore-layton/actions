@@ -8,6 +8,15 @@ inputs:
     description: 'Optional. Set to "true" to skip the hhast-lint step.'
     required: false
     default: false
+  lint_engine:
+    description: |
+      Optional. Can either be "hhast" or "pha", defaults to "hhast".
+      "hhast" will invoke vendor/hhvm/hhast/bin/hhast-lint
+      "pha" will invoke vendor/hershel-theodore-layton/portable-hack-ast-linters-server/bin/portable-hack-ast-linters-server-bundled.resource
+    required: false
+    default: "hhast"
+  lint_args: "Optional. Command line arguments for your linter."
+    required: false
   skip_tests:
     description: 'Optional. Set to "true" to skip the hacktest step.'
     required: false
@@ -81,7 +90,9 @@ runs:
         ${{github.action_path}}/lint.sh \
           "${{inputs.hhvm}}" \
           "${{inputs.skip_lint}}" \
-          "${{inputs.hhvm_flags}}"
+          "${{inputs.hhvm_flags}}" \
+          "${{inputs.lint_engine}}" \
+          "${{inputs.lint_args}}"
     - name: Run tests
       shell: bash
       run: |
