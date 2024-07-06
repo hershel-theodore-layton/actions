@@ -1,1 +1,0 @@
-const string X = 'Missing license header';
