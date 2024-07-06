@@ -9,6 +9,7 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu]
+        skip: [ true, false ]
         hhvm:
           - "4.102"
           - "4.128"
