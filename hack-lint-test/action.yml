@@ -37,10 +37,23 @@ runs:
       run: |
         echo "::group::Install project dependencies"
         FLAGS=""
+        VERSION_SPECIFIC_COMPOSER="composer.${{inputs.hhvm}}.json"
+
         if [ -n "${{inputs.hhvm_flags}}" ]; then
           FLAGS="--no-autoloader"
         fi
-        php ${{runner.temp}}/composer.phar install $FLAGS
+
+        if [ -f $VERSION_SPECIFIC_COMPOSER ]; then
+          COMPOSER=$VERSION_SPECIFIC_COMPOSER
+        elif [ -f "composer.dev.json"]; then
+          COMPOSER="composer.dev.json"
+        else
+          COMPOSER="composer.json"
+        fi
+
+        echo "Using $COMPOSER"
+
+        COMPOSER=$VERSION_SPECIFIC_COMPOSER php ${{runner.temp}}/composer.phar install $FLAGS
         echo "::endgroup::"
     - name: Generate autoload map
       shell: bash
