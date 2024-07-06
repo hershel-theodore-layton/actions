@@ -1,8 +1,8 @@
-name: 'HackLintTest'
-description: 'Runs the Hack typechecker, linter (HHAST) and tests (HackTest)'
+name: "HackLintTest"
+description: "Runs the Hack typechecker, linter (HHAST) and tests (HackTest)"
 inputs:
   hhvm:
-    description: 'HHVM version (latest/nightly/#.##)'
+    description: "HHVM version (latest/nightly/#.##)"
     required: true
   skip_lint:
     description: 'Optional. Set to "true" to skip the hhast-lint step.'
@@ -13,7 +13,7 @@ inputs:
     required: false
     default: false
   hhvm_flags:
-    description: 'Optional. Command line arguments that will be added to all `hhvm` invocations (hh-autoload, hhast-lint, hacktest).'
+    description: "Optional. Command line arguments that will be added to all `hhvm` invocations (hh-autoload, hhast-lint, hacktest)."
     required: false
 runs:
   using: "composite"
@@ -53,7 +53,7 @@ runs:
 
         echo "Using $COMPOSER"
 
-        COMPOSER=$VERSION_SPECIFIC_COMPOSER php ${{runner.temp}}/composer.phar install $FLAGS
+        COMPOSER=$COMPOSER php ${{runner.temp}}/composer.phar install $FLAGS
         echo "::endgroup::"
     - name: Generate autoload map
       shell: bash
