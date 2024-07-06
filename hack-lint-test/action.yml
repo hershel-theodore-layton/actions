@@ -24,6 +24,9 @@ runs:
     - name: Install HHVM
       shell: bash
       run: ${{github.action_path}}/install-hhvm.sh ${{inputs.hhvm}}
+    - name: Install Watchman
+      shell: bash
+      run: ${{github.action_path}}/install-watchman.sh
     - name: Inspect HHVM and Hack versions
       shell: bash
       run: |
