@@ -67,6 +67,7 @@ runs:
             set -x
             hhvm ${{inputs.hhvm_flags}} vendor/hhvm/hhvm-autoload/bin/hh-autoload
           )
+          cat vendor/autoload.hack
           echo "::endgroup::"
         fi
     - name: Typecheck
