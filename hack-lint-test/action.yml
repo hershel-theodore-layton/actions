@@ -63,7 +63,7 @@ runs:
       run: |
         if [ -n "${{inputs.hhvm_flags}}" ]; then
           echo "::group::Generate autoload map"
-          hhvm ${{inputs.hhvm_flags}} hhvm --php -r "echo (\HH\Facts\enabled() ? 'Using ext_watchman' : 'Using hhvm-autoload');"
+          hhvm ${{inputs.hhvm_flags}} --php -r "echo (\HH\Facts\enabled() ? 'Using ext_watchman' : 'Using hhvm-autoload');"
           (
             set -x
             hhvm ${{inputs.hhvm_flags}} vendor/hhvm/hhvm-autoload/bin/hh-autoload
