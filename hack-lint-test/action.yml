@@ -45,7 +45,7 @@ runs:
 
         if [ -f $VERSION_SPECIFIC_COMPOSER ]; then
           COMPOSER=$VERSION_SPECIFIC_COMPOSER
-        elif [ -f "composer.dev.json"]; then
+        elif [ -f "composer.dev.json" ]; then
           COMPOSER="composer.dev.json"
         else
           COMPOSER="composer.json"
