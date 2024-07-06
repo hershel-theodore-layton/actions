@@ -4,5 +4,10 @@
         "hhvm/hacktest": "*",
         "hhvm/hhast": "*",
         "facebook/fbexpect": "*"
+    },
+    "config": {
+        "allow-plugins": {
+            "hhvm/hhvm-autoload": true
+        }
     }
 }
