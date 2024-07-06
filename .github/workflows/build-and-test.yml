@@ -35,5 +35,5 @@ jobs:
         with:
           hhvm: latest
           hhvm_flags: -dhhvm.hack.lang.enable_coeffects=true -dhhvm.forbid_division_by_zero=true
-          skip_lint: ${{matrix.skip}}
+          skip_lint: ${{ matrix.hhvm != '4.168' }}
           skip_tests: ${{matrix.skip}}
