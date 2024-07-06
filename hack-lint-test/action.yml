@@ -65,6 +65,7 @@ runs:
           echo "::group::Generate autoload map"
           (
             set -x
+            hhvm ${{inputs.hhvm_flags}} --php -r "\var_dump(\HH\Facts\enabled());"
             hhvm ${{inputs.hhvm_flags}} vendor/hhvm/hhvm-autoload/bin/hh-autoload
           )
           cat vendor/autoload.hack
