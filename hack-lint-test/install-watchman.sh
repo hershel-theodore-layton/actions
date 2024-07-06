@@ -40,11 +40,12 @@ if [ ! -f /usr/local/bin/watchman ]; then
   unzip watchman.zip
   rm watchman.zip
   mv watchman* watchman-unzipped
+  cd watchman-unzipped
   sudo mkdir -p /usr/local/{bin,lib} /usr/local/var/run/watchman
   sudo cp bin/* /usr/local/bin
   sudo cp lib/* /usr/local/lib
   sudo chmod 755 /usr/local/bin/watchman
   sudo chmod 2777 /usr/local/var/run/watchman
-  cd ../..
+  cd ../../..
   rm -rf .var/tmp-directory-delete-me
 fi
