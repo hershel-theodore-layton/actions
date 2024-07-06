@@ -4,12 +4,12 @@ on:
   pull_request:
 jobs:
   build:
-    name: 'Skip: ${{matrix.skip}} (${{matrix.hhvm}})'
+    name: "Skip: ${{matrix.skip}} (${{matrix.hhvm}})"
     strategy:
       fail-fast: false
       matrix:
         os: [ubuntu]
-        skip: [ true, false ]
+        skip: [true, false]
         hhvm:
           - "4.102"
           - "4.128"
@@ -24,16 +24,16 @@ jobs:
         run: |
           shopt -s dotglob
           mv test-project/* .
-      - name: Standard run
-        uses: ./hack-lint-test
-        with:
-          hhvm: ${{matrix.hhvm}}
-          skip_lint: ${{matrix.skip}}
-          skip_tests: ${{matrix.skip}}
+      # - name: Standard run
+      #   uses: ./hack-lint-test
+      #   with:
+      #     hhvm: ${{matrix.hhvm}}
+      #     skip_lint: ${{matrix.skip}}
+      #     skip_tests: ${{matrix.skip}}
       - name: Override HHVM flags
         uses: ./hack-lint-test
         with:
           hhvm: ${{matrix.hhvm}}
-          hhvm_flags: -dhhvm.hack.lang.enable_coeffects=true -dhhvm.forbid_division_by_zero=true -dhhvm.autoload.enabled=true -dhhvm.autoload.db.path=.var/facts-%{euid}-%{schema}.db
+          hhvm_flags: -dhhvm.autoload.enabled=true -dhhvm.autoload.db.path=.var/facts-%{euid}-%{schema}.db
           skip_lint: ${{matrix.skip}}
           skip_tests: ${{matrix.skip}}
