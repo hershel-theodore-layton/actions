@@ -29,8 +29,9 @@ jobs:
         with:
           hhvm: ${{matrix.hhvm}}
           hhvm_flags: -dhhvm.autoload.enabled=true -dhhvm.autoload.db.path=.var/facts-%{euid}-%{schema}.db
-          skip_lint: ${{matrix.skip}}
+          skip_lint: ${{matrix.skip || matrix.hhvm == '4.102'}}
           skip_tests: ${{matrix.skip}}
+          lint_engine: pha
       - name: HHVM Autoload Run
         uses: ./hack-lint-test
         with:
