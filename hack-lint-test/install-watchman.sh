@@ -32,18 +32,19 @@
 
 set -ex
 
-mkdir -p .var/tmp-directory-delete-me
-cp install-hack/watchman-v2024.04.15.00-linux.zip .var/tmp-directory-delete-me/watchman.zip
+if [ ! -f /usr/local/bin/watchman ]; then
+  mkdir -p .var/tmp-directory-delete-me
+  cp install-hack/watchman-v2024.04.15.00-linux.zip .var/tmp-directory-delete-me/watchman.zip
 
-cd .var/tmp-directory-delete-me
-unzip watchman.zip
-rm watchman.zip
-mv watchman* watchman-unzipped
-cat << EOF > watchman-unzipped/install-watchman.sh
-mkdir -p /usr/local/{bin,lib} /usr/local/var/run/watchman
-cp bin/* /usr/local/bin
-cp lib/* /usr/local/lib
-chmod 755 /usr/local/bin/watchman
-chmod 2777 /usr/local/var/run/watchman
-cd ../..
-rm -rf .var/tmp-directory-delete-me
+  cd .var/tmp-directory-delete-me
+  unzip watchman.zip
+  rm watchman.zip
+  mv watchman* watchman-unzipped
+  mkdir -p /usr/local/{bin,lib} /usr/local/var/run/watchman
+  cp bin/* /usr/local/bin
+  cp lib/* /usr/local/lib
+  chmod 755 /usr/local/bin/watchman
+  chmod 2777 /usr/local/var/run/watchman
+  cd ../..
+  rm -rf .var/tmp-directory-delete-me
+fi
