@@ -32,7 +32,7 @@
 
 set -ex
 
-pwd
+ls -al
 
 # mkdir -p .var/tmp-directory-delete-me
 # cp watchman.zip .var/tmp-directory-delete-me/watchman.zip
