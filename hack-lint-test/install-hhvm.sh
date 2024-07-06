@@ -24,11 +24,14 @@ if [ "$OS" = "Linux" ]; then
     sudo add-apt-repository https://dl.hhvm.com/ubuntu
     sudo apt-get install -y hhvm
   else
-    DISTRO=$(lsb_release --codename --short)
-    sudo add-apt-repository \
-      "deb https://dl.hhvm.com/ubuntu ${DISTRO}-$1 main"
-    sudo apt-get remove hhvm || true
-    sudo apt-get install -y hhvm
+    HHVM_VERSION=`hhvm --php -r "echo HHVM_VERSION_MAJOR . '.' . HHVM_VERSION_MINOR;"`
+    if [ "$HHVM_VERSION" -ne "$1" ]; then
+      DISTRO=$(lsb_release --codename --short)
+      sudo add-apt-repository \
+        "deb https://dl.hhvm.com/ubuntu ${DISTRO}-$1 main"
+      sudo apt-get remove hhvm || true
+      sudo apt-get install -y hhvm
+    fi
   fi
 
 elif [ "$OS" = "Darwin" ]; then
