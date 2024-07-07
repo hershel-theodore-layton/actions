@@ -73,12 +73,10 @@ runs:
       run: |
         echo "::group::Generate autoload map"
 
-        INIT='self::initBootstrapAutoloader();'
-
         if [ -f vendor/hhvm/hhvm-autoload/bin/hh-autoload.hack ]; then
-          echo "Patch hhvm-autoload to only search for the hsl if not already built-in."
+          echo "Patch hhvm-autoload so that it can use the built-in hsl."
 
-          sed -i "s/$INIT/if (\\!\\\\class_exists('HH\\\\Lib\\\\Ref')) { $INIT }/g" \
+          sed -i 's/!$have_hsl/!$have_hsl \&\& !\\class_exists("HH\\Lib\\Ref")/' \
             vendor/hhvm/hhvm-autoload/bin/hh-autoload.hack
         fi
 

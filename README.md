@@ -39,5 +39,4 @@ without permission or aid from Facebook (Meta).
     This is because it can not find the `vendor/hhvm/hsl` directory.
     This search is pointless on [hhvm version 4.108](https://hhvm.com/blog/2021/05/04/hhvm-4.108.html) and above,
     since these versions of hhvm include the hsl in the hhvm binary.
-    This actions runner patches hhvm-autoload to check if the hsl is built-in,
-    before searching for the `vendor/hhvm/hsl` directory.
+    This actions runner patches hhvm-autoload to continue if the hsl is built-in.
