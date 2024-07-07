@@ -78,14 +78,16 @@ runs:
 
           sed -i 's/!$have_hsl/!$have_hsl \&\& !\\class_exists("HH\\Lib\\Ref")/' \
             vendor/hhvm/hhvm-autoload/bin/hh-autoload.hack
+          (
+            set -x
+            hhvm ${{inputs.hhvm_flags}} vendor/hhvm/hhvm-autoload/bin/hh-autoload
+          )
+          cat vendor/autoload.hack
+          hhvm --php ${{inputs.hhvm_flags}} -r "echo (\function_exists('HH\Facts\enabled') && \HH\Facts\enabled() ? 'Using ext_watchman' : 'Using hhvm-autoload');"
+        else
+          echo "HHVM Autoload not detected, skipping this step."
         fi
 
-        (
-          set -x
-          hhvm ${{inputs.hhvm_flags}} vendor/hhvm/hhvm-autoload/bin/hh-autoload
-        )
-        cat vendor/autoload.hack
-        hhvm --php ${{inputs.hhvm_flags}} -r "echo (\function_exists('HH\Facts\enabled') && \HH\Facts\enabled() ? 'Using ext_watchman' : 'Using hhvm-autoload');"
         echo "::endgroup::"
     - name: Typecheck
       shell: bash
