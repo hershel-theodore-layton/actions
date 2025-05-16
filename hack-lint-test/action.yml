@@ -31,14 +31,7 @@ runs:
     - name: Install Composer
       shell: bash
       run: |
-        ls /__w
-        echo "now actions..."
-        ls /__w/actions
-        echo "now actions/actions..."
-        ls /__w/actions/actions
-        echo "now hlt..."
-        ls /__w/actions/actions/hack-lint-test
-        echo "end of list"
+        adduser --disabled-password --gecos "" autoloader-user --uid 1001
         /__w/actions/actions/hack-lint-test/install-composer.sh --install-dir=/__w/
     - name: Install Watchman
       shell: bash
