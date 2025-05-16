@@ -32,8 +32,11 @@ runs:
       shell: bash
       run: |
         ls /__w
+        echo "now actions..."
         ls /__w/actions
+        echo "now actions/actions..."
         ls /__w/actions/actions
+        echo "end of list"
         /__w/actions/actions/install-composer.sh --install-dir=/__w/
     - name: Install Watchman
       shell: bash
