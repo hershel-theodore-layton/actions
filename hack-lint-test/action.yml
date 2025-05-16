@@ -27,8 +27,6 @@ inputs:
     required: false
 runs:
   using: "composite"
-  container:
-    image: hhvm/hhvm:4.168-latest
   steps:
     - name: Install Composer
       shell: bash
