@@ -48,6 +48,7 @@ runs:
       shell: bash
       run: |
         echo "::group::Install project dependencies"
+        ls
         FLAGS=""
         VERSION_SPECIFIC_COMPOSER="composer.${{inputs.hhvm}}.json"
 
