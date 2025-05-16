@@ -32,10 +32,10 @@ runs:
       shell: bash
       run: |
         id -u autoloader-user &>/dev/null || adduser --disabled-password --gecos "" autoloader-user --uid 1001
-        /__w/actions/actions/hack-lint-test/install-composer.sh --install-dir=/__w/
+        ${{github.action_path}}/install-composer.sh --install-dir=${{runner.temp}}
     - name: Install Watchman
       shell: bash
-      run: /__w/actions/actions/hack-lint-test/install-watchman.sh
+      run: ${{github.action_path}}/install-watchman.sh
     - name: Inspect HHVM and Hack versions
       shell: bash
       run: |
@@ -65,7 +65,7 @@ runs:
 
         echo "Using $COMPOSER"
 
-        COMPOSER=$COMPOSER php /__w/composer.phar install $FLAGS
+        COMPOSER=$COMPOSER php ${{runner.temp}}/composer.phar install $FLAGS
         echo "::endgroup::"
     - name: Generate autoload map
       shell: bash
@@ -97,7 +97,7 @@ runs:
     - name: Lint
       shell: bash
       run: |
-        /__w/actions/actions/hack-lint-test/lint.sh \
+        ${{github.action_path}}/lint.sh \
           "${{inputs.hhvm}}" \
           "${{inputs.skip_lint}}" \
           "${{inputs.hhvm_flags}}" \
@@ -106,6 +106,6 @@ runs:
     - name: Run tests
       shell: bash
       run: |
-        /__w/actions/actions/hack-lint-test/test.sh \
+        ${{github.action_path}}/test.sh \
           "${{inputs.skip_tests}}" \
           "${{inputs.hhvm_flags}}"
