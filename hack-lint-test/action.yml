@@ -27,13 +27,12 @@ inputs:
     required: false
 runs:
   using: "composite"
+  container:
+    image: hhvm/hhvm:4.168-latest
   steps:
     - name: Install Composer
       shell: bash
       run: ${{github.action_path}}/install-composer.sh --install-dir=${{runner.temp}}
-    - name: Install HHVM
-      shell: bash
-      run: ${{github.action_path}}/install-hhvm.sh ${{inputs.hhvm}}
     - name: Install Watchman
       shell: bash
       run: ${{github.action_path}}/install-watchman.sh
