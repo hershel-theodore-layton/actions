@@ -30,7 +30,7 @@ runs:
   steps:
     - name: Install Composer
       shell: bash
-      run: /__w/actions/actions/install-composer.sh --install-dir=${{runner.temp}}
+      run: /__w/actions/actions/install-composer.sh --install-dir=/__w/
     - name: Install Watchman
       shell: bash
       run: /__w/actions/actions/install-watchman.sh
