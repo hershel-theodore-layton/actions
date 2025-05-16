@@ -28,6 +28,10 @@ inputs:
 runs:
   using: "composite"
   steps:
+    - name: What is the state of this machine?
+      shell: bash
+      run: |
+        hhvm --version
     - name: Install Composer
       shell: bash
       run: ${{github.action_path}}/install-composer.sh --install-dir=${{runner.temp}}
