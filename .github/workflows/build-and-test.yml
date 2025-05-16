@@ -20,7 +20,7 @@ jobs:
           - "4.168"
     runs-on: ubuntu-24.04
     container:
-      image: hhvm/hhvm:4.168-latest
+      image: hhvm/hhvm:${{matrix.hhvm}}-latest
     steps:
       - uses: actions/checkout@v2
       # No way to set working directory for a GitHub Action :(
