@@ -32,6 +32,10 @@ runs:
       shell: bash
       run: |
         hhvm --version
+        pwd
+        apt update
+        apt install tree
+        tree /
     - name: Install Composer
       shell: bash
       run: |
@@ -48,7 +52,7 @@ runs:
             exit 1
         fi
 
-        php composer-setup.php --install-dir=${{runner.temp}}
+        php composer-setup.php "$@"
         RESULT=$?
         rm composer-setup.php
 
