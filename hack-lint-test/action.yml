@@ -42,7 +42,7 @@ runs:
         /__w/actions/actions/hack-lint-test/install-composer.sh --install-dir=/__w/
     - name: Install Watchman
       shell: bash
-      run: /__w/actions/actions/install-watchman.sh
+      run: /__w/actions/actions/hack-lint-test/install-watchman.sh
     - name: Inspect HHVM and Hack versions
       shell: bash
       run: |
