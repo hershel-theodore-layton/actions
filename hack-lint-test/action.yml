@@ -33,7 +33,10 @@ runs:
       run: |
         hhvm --version
         pwd
-        tree
+        echo ${{github.action_path}}
+        apt update
+        apt install tree
+        tree ${{github.action_path}}
     - name: Install Composer
       shell: bash
       run: ${{github.action_path}}/install-composer.sh --install-dir=${{runner.temp}}
