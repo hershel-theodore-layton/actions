@@ -28,14 +28,6 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - name: What is the state of this machine?
-      shell: bash
-      run: |
-        hhvm --version
-        pwd
-        apt update
-        apt install tree
-        tree /
     - name: Install Composer
       shell: bash
       run: |
@@ -62,7 +54,7 @@ runs:
 
     - name: Install Watchman
       shell: bash
-      run: ${{github.action_path}}/install-watchman.sh
+      run: /__w/actions/actions/install-watchman.sh
     - name: Inspect HHVM and Hack versions
       shell: bash
       run: |
@@ -124,7 +116,7 @@ runs:
     - name: Lint
       shell: bash
       run: |
-        ${{github.action_path}}/lint.sh \
+        /__w/actions/actions/lint.sh \
           "${{inputs.hhvm}}" \
           "${{inputs.skip_lint}}" \
           "${{inputs.hhvm_flags}}" \
@@ -133,6 +125,6 @@ runs:
     - name: Run tests
       shell: bash
       run: |
-        ${{github.action_path}}/test.sh \
+        /__w/actions/actions/test.sh \
           "${{inputs.skip_tests}}" \
           "${{inputs.hhvm_flags}}"
