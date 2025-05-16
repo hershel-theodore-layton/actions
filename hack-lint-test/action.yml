@@ -48,7 +48,6 @@ runs:
       shell: bash
       run: |
         echo "::group::Install project dependencies"
-        ls
         FLAGS=""
         VERSION_SPECIFIC_COMPOSER="composer.${{inputs.hhvm}}.json"
 
@@ -67,6 +66,8 @@ runs:
         echo "Using $COMPOSER"
 
         COMPOSER=$COMPOSER php ${GITHUB_ACTION_PATH}/composer.phar install $FLAGS
+        ls
+        ls vendor
         echo "::endgroup::"
     - name: Generate autoload map
       shell: bash
