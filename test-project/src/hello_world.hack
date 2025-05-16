@@ -7,6 +7,6 @@
  *
  */
 
-function hello_world(): string {
+function hello_world()[defaults]: string {
   return 'Hello, world!';
 }

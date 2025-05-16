@@ -11,7 +11,7 @@ use type Facebook\HackTest\HackTest;
 use function Facebook\FBExpect\expect;
 
 final class HelloWorldTest extends HackTest {
-  public function testHelloWorld(): void {
+  public function testHelloWorld()[defaults]: void {
     expect(hello_world())->toEqual('Hello, world!');
   }
 }
