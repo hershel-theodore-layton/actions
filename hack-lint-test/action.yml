@@ -36,8 +36,10 @@ runs:
         ls /__w/actions
         echo "now actions/actions..."
         ls /__w/actions/actions
+        echo "now hlt..."
+        ls /__w/actions/actions/hack-lint-test
         echo "end of list"
-        /__w/actions/actions/install-composer.sh --install-dir=/__w/
+        /__w/actions/actions/hack-lint-test/install-composer.sh --install-dir=/__w/
     - name: Install Watchman
       shell: bash
       run: /__w/actions/actions/install-watchman.sh
@@ -102,7 +104,7 @@ runs:
     - name: Lint
       shell: bash
       run: |
-        /__w/actions/actions/lint.sh \
+        /__w/actions/actions/hack-lint-test/lint.sh \
           "${{inputs.hhvm}}" \
           "${{inputs.skip_lint}}" \
           "${{inputs.hhvm_flags}}" \
@@ -111,6 +113,6 @@ runs:
     - name: Run tests
       shell: bash
       run: |
-        /__w/actions/actions/test.sh \
+        /__w/actions/actions/hack-lint-test/test.sh \
           "${{inputs.skip_tests}}" \
           "${{inputs.hhvm_flags}}"
