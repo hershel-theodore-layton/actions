@@ -72,7 +72,7 @@ runs:
 
         echo "Using $COMPOSER"
 
-        COMPOSER=$COMPOSER php ${{runner.temp}}/composer.phar install $FLAGS
+        COMPOSER=$COMPOSER php /__w/composer.phar install $FLAGS
         echo "::endgroup::"
     - name: Generate autoload map
       shell: bash
