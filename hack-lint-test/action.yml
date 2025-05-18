@@ -15,6 +15,13 @@ inputs:
       "pha" will invoke vendor/hershel-theodore-layton/portable-hack-ast-linters-server/bin/portable-hack-ast-linters-server-bundled.resource
     required: false
     default: "hhast"
+  test_engine:
+    description: >
+      Optional. Can either be "hacktest" or "test-chain", defaults to "hacktest".
+      "hacktest" will invoke vendor/hhvm/hacktest/bin/hacktest tests/
+      "test-chain" will invoke vendor/hershel-theodore-layton/test-chain/bin/test-chain --ci
+    required: false
+    default: "hacktest"
   lint_args:
     description: "Optional. Command line arguments for your linter."
     required: false
@@ -108,4 +115,5 @@ runs:
       run: |
         ${GITHUB_ACTION_PATH}/test.sh \
           "${{inputs.skip_tests}}" \
-          "${{inputs.hhvm_flags}}"
+          "${{inputs.hhvm_flags}}" \
+          "${{inputs.test_engine}}"

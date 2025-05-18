@@ -10,6 +10,7 @@ set -e
 
 SKIP="$1"
 FLAGS="$2"
+$ENGINE="$3"
 
 if [ "$SKIP" = "true" ]; then
   echo "Tests skipped."
@@ -21,9 +22,19 @@ if [ "$SKIP" != "false" ]; then
   exit 1
 fi
 
-echo "::group::Run tests"
+if [ "$ENGINE" = "hacktest" ]; then
 (
   set -x
-  hhvm $FLAGS vendor/hhvm/hacktest/bin/hacktest tests/
+  hhvm $FLAGS vendor/hhvm/hhast/bin/hacktest tests/
 )
+elif [ "$ENGINE" = "test-chain" ]; then
+(
+  set -x
+  hhvm $FLAGS vendor/hershel-theodore-layton/test-chain/bin/test-chain --ci
+)
+else
+  echo "Invalid test_engine value: $ENGINE"
+  exit 1
+fi
+
 echo "::endgroup::"
