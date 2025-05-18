@@ -10,7 +10,7 @@ set -e
 
 SKIP="$1"
 FLAGS="$2"
-$ENGINE="$3"
+ENGINE="$3"
 
 if [ "$SKIP" = "true" ]; then
   echo "Tests skipped."
