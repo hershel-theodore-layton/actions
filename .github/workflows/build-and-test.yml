@@ -6,21 +6,23 @@ name: Continuous Integration
 on:
   push:
   pull_request:
+  workflow_dispatch:
+  schedule:
+    - cron: "24 18 * * FRI"
 jobs:
   build:
-    name: "Skip: ${{matrix.skip}} (${{matrix.hhvm}})"
+    name: HHVM ${{matrix.hhvm}}
     strategy:
       fail-fast: false
       matrix:
-        skip: [true, false]
         hhvm:
-          - "4.102"
-          - "4.128"
           - "4.153"
           - "4.168"
+          - "25.6.0"
+          - "25.7.0"
     runs-on: ubuntu-24.04
     container:
-      image: hhvm/hhvm:${{matrix.hhvm}}-latest
+      image: ${{ startsWith(matrix.hhvm, '4') && format('hhvm/hhvm:{0}-latest', matrix.hhvm) || format('hersheltheodorelayton/hhvm-full:{0}', matrix.hhvm) }}
     steps:
       - uses: actions/checkout@v2
       # No way to set working directory for a GitHub Action :(
@@ -33,7 +35,7 @@ jobs:
         uses: ./hack-lint-test
         with:
           hhvm: ${{matrix.hhvm}}
-          hhvm_flags: -dhhvm.autoload.enabled=true -dhhvm.autoload.db.path=.var/facts-%{euid}-%{schema}.db
+          hhvm_flags: ${{ startsWith(matrix.hhvm, '4') && '-dhhvm.autoload.enabled=true -dhhvm.autoload.db.path=.var/facts.db' || '' }}
           skip_lint: ${{matrix.skip || matrix.hhvm == '4.102'}}
           skip_tests: ${{matrix.skip}}
           lint_engine: pha

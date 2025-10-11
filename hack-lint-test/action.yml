@@ -8,6 +8,19 @@ inputs:
     description: 'Optional. Set to "true" to skip the hhast-lint step.'
     required: false
     default: false
+  skip_tests:
+    description: 'Optional. Set to "true" to skip the hacktest step.'
+    required: false
+    default: false
+  lint_engine:
+    description: >
+      Optional. Can either be "hh_client" or "hh_server", defaults to "hh_client".
+      "hh_client" will use `hh_client` to typecheck, which reports errors only.
+      "hh_server" will use `hh_server --check .`, which reports lint warnings as well as errors.
+      "hh_server" is recommended, since it reports everything hh_client reports and more.
+      The default is "hh_client" for backwards compatibility.
+    required: false
+    default: "hh_client"
   lint_engine:
     description: >
       Optional. Can either be "hhast" or "pha", defaults to "hhast".
@@ -25,10 +38,6 @@ inputs:
   lint_args:
     description: "Optional. Command line arguments for your linter."
     required: false
-  skip_tests:
-    description: 'Optional. Set to "true" to skip the hacktest step.'
-    required: false
-    default: false
   hhvm_flags:
     description: "Optional. Command line arguments that will be added to all `hhvm` invocations (hh-autoload, hhast-lint, hacktest)."
     required: false
@@ -99,7 +108,17 @@ runs:
       shell: bash
       run: |
         echo "::group::Typecheck"
-        hh_client
+        if [ "${{inputs.typecheck_engine}}" = "hh_client" ]; then
+        (
+          hh_client
+        )
+        elif [ "${{inputs.typecheck_engine}}" = "hh_server" ]; then
+        (
+          hh_server --check .
+        )
+        else
+          echo "Invalid typecheck_engine value: ${{inputs.typecheck_engine}}"
+        fi
         echo "::endgroup::"
     - name: Lint
       shell: bash
