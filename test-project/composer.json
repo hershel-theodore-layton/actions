@@ -1,0 +1,14 @@
+{
+    "require": {
+        "hhvm/hhvm-autoload": "*",
+        "hhvm/hacktest": "*",
+        "hhvm/hhast": "*",
+        "facebook/fbexpect": "*",
+        "hershel-theodore-layton/portable-hack-ast-linters-server": "*"
+    },
+    "config": {
+        "allow-plugins": {
+            "hhvm/hhvm-autoload": true
+        }
+    }
+}
