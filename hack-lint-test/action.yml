@@ -12,7 +12,7 @@ inputs:
     description: 'Optional. Set to "true" to skip the hacktest step.'
     required: false
     default: false
-  lint_engine:
+  typecheck_engine:
     description: >
       Optional. Can either be "hh_client" or "hh_server", defaults to "hh_client".
       "hh_client" will use `hh_client` to typecheck, which reports errors only.
