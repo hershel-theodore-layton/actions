@@ -11,7 +11,7 @@ on:
     - cron: "24 18 * * FRI"
 jobs:
   build:
-    name: HHVM ${{matrix.hhvm}}
+    name: "Skip: ${{matrix.skip}} (${{matrix.hhvm}})"
     strategy:
       fail-fast: false
       matrix:
