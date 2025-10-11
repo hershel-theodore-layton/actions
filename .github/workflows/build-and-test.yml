@@ -15,6 +15,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
+        skip: [true, false]
         hhvm:
           - "4.153"
           - "4.168"
