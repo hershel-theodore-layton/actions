@@ -25,7 +25,7 @@ fi
 if [ "$ENGINE" = "hacktest" ]; then
 (
   set -x
-  hhvm $FLAGS vendor/hhvm/hhast/bin/hacktest tests/
+  hhvm $FLAGS vendor/hhvm/hacktest/bin/hacktest tests/
 )
 elif [ "$ENGINE" = "test-chain" ]; then
 (
