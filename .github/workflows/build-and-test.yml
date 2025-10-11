@@ -11,11 +11,12 @@ on:
     - cron: "24 18 * * FRI"
 jobs:
   build:
-    name: "Skip: ${{matrix.skip}} (${{matrix.hhvm}})"
+    name: "Skip: ${{matrix.skip}} Checker: ${{matrix.checker}} (${{matrix.hhvm}})"
     strategy:
       fail-fast: false
       matrix:
         skip: [true, false]
+        checker: ["hh_client", "hh_server"]
         hhvm:
           - "4.153"
           - "4.168"
@@ -40,6 +41,7 @@ jobs:
           skip_lint: ${{matrix.skip || matrix.hhvm == '4.102'}}
           skip_tests: ${{matrix.skip}}
           lint_engine: pha
+          typecheck_engine: ${{matrix.checker}}
       - name: HHVM Autoload Run
         uses: ./hack-lint-test
         with:
@@ -47,3 +49,4 @@ jobs:
           skip_lint: ${{matrix.skip}}
           skip_tests: ${{matrix.skip}}
           lint_engine: hhast
+          typecheck_engine: ${{matrix.checker}}
