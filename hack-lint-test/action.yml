@@ -47,7 +47,7 @@ runs:
     - name: Install Composer
       shell: bash
       run: |
-        id -u autoloader-user &>/dev/null || adduser --disabled-password --gecos "" autoloader-user --uid 1001
+        id -u autoloader-user &>/dev/null || /sbin/adduser --disabled-password --gecos "" autoloader-user --uid 1001
         ${GITHUB_ACTION_PATH}/install-composer.sh --install-dir=${GITHUB_ACTION_PATH}
     - name: Install Watchman
       shell: bash
