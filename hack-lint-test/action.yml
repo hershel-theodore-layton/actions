@@ -16,8 +16,9 @@ inputs:
     description: >
       Optional. Can either be "hh_client" or "hh_server", defaults to "hh_client".
       "hh_client" will use `hh_client` to typecheck, which reports errors only.
-      "hh_server" will use `hh_server --check .`, which reports lint warnings as well as errors.
-      "hh_server" is recommended, since it reports everything hh_client reports and more.
+      "hh_server" will use `hh_server --check .`, which reports lint warnings but does not quit on them.
+      "strict" will use the strictst rules available, can be made stricter in the future. Quits on warnings.
+      "strict" is recommended, since it reports everything and quits your pipeline when it reports something.
       The default is "hh_client" for backwards compatibility.
     required: false
     default: "hh_client"
@@ -107,19 +108,7 @@ runs:
     - name: Typecheck
       shell: bash
       run: |
-        echo "::group::Typecheck"
-        if [ "${{inputs.typecheck_engine}}" = "hh_client" ]; then
-        (
-          hh_client
-        )
-        elif [ "${{inputs.typecheck_engine}}" = "hh_server" ]; then
-        (
-          hh_server --check .
-        )
-        else
-          echo "Invalid typecheck_engine value: ${{inputs.typecheck_engine}}"
-        fi
-        echo "::endgroup::"
+        ${GITHUB_ACTION_PATH}/typecheck.sh "${{inputs.typecheck_engine}}"
     - name: Lint
       shell: bash
       run: |
