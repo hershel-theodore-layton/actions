@@ -1,6 +1,10 @@
 name: "HackLintTest"
 description: "Runs the Hack typechecker, linter (HHAST) and tests (HackTest)"
 inputs:
+  composer_version:
+    description: "Composer release selector: latest, major (2), minor (2.10), or exact version (2.10.3)."
+    required: false
+    default: "latest"
   hhvm:
     description: "HHVM version (latest/nightly/#.##)"
     required: true
@@ -46,10 +50,13 @@ runs:
   using: "composite"
   steps:
     - name: Install Composer
+      id: composer
       shell: bash
+      env:
+        REQUESTED_COMPOSER_VERSION: ${{ inputs.composer_version }}
       run: |
         id -u autoloader-user &>/dev/null || useradd -m -u 1001 -c "" -p '!' autoloader-user
-        ${GITHUB_ACTION_PATH}/install-composer.sh --install-dir=${GITHUB_ACTION_PATH}
+        "${GITHUB_ACTION_PATH}/install-composer.sh" "$REQUESTED_COMPOSER_VERSION" "$GITHUB_ACTION_PATH"
     - name: Install Watchman
       shell: bash
       run: ${GITHUB_ACTION_PATH}/install-watchman.sh
@@ -63,6 +70,8 @@ runs:
       run: echo "COMPOSER_ROOT_VERSION=dev-${{github.base_ref || github.ref_name}}" >> $GITHUB_ENV
     - name: Install project dependencies
       shell: bash
+      env:
+        COMPOSER_BINARY: ${{ steps.composer.outputs.binary }}
       run: |
         echo "::group::Install project dependencies"
         FLAGS=""
@@ -82,7 +91,7 @@ runs:
 
         echo "Using $COMPOSER"
 
-        COMPOSER=$COMPOSER php ${GITHUB_ACTION_PATH}/composer.phar install $FLAGS
+        COMPOSER=$COMPOSER "$COMPOSER_BINARY" install $FLAGS
         echo "::endgroup::"
     - name: Generate autoload map
       shell: bash

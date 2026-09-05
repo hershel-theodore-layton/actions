@@ -5,6 +5,26 @@ This repository contains GitHub Actions code shared by the various Hack projects
 
 ## Integrations
 
+Set `composer_version` on `hack-lint-test` to select a Composer release.
+The default is `latest`.
+
+| Input | Selected release |
+| --- | --- |
+| `latest` | Latest stable Composer release |
+| `2` | Latest stable release in the 2.x series |
+| `2.10` | Latest stable release in the 2.10.x series |
+| `2.10.3` | Exactly 2.10.3 |
+
+```yaml
+- uses: hershel-theodore-layton/actions/hack-lint-test@master
+  with:
+    hhvm: "26.06.05"
+    composer_version: "2.10"
+```
+
+If already installed, `self-update` runs, including to downgrade to match your
+requested version.
+
 This CI runner integrates with:
 
 - HHVM's original Open Source dependencies
