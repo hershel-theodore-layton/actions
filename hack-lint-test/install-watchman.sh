@@ -4,7 +4,7 @@
 #
 # These large parts of these installation instructions were taken from:
 # https://github.com/facebook/watchman/blob/5f995979d5a5f42f2151247d06a1ac83969e5d1d/website/docs/install.md#prebuilt-binaries-2
-# The full license text is repoduced here:
+# The full license text is reproduced here:
 #
 # ---
 # MIT License
