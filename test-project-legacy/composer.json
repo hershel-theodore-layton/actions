@@ -3,8 +3,7 @@
         "hhvm/hhvm-autoload": "*",
         "hhvm/hacktest": "*",
         "hhvm/hhast": "*",
-        "facebook/fbexpect": "*",
-        "hershel-theodore-layton/portable-hack-ast-linters-server": "*"
+        "facebook/fbexpect": "*"
     },
     "config": {
         "allow-plugins": {

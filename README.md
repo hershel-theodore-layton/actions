@@ -13,6 +13,13 @@ This CI runner integrates with:
   - [hhvm/hhvm-autoload](https://github.com/hhvm/hhvm-autoload)[^1] and [ext_watchman](https://hhvm.com/blog/2021/05/11/hhvm-4.109.html) autoloading
 - The `HTL\` family of Open Source tools
   - [PhaLinters](https://github.com/hershel-theodore-layton/portable-hack-ast-linters)
+  - [TestChain](https://github.com/hershel-theodore-layton/test-chain)
+
+CI tests both legacy HHVM autoload and Facts/Watchman autoload on HHVM 4.x,
+using the `test-project-legacy` fixture with HackTest and HHAST. This fixture
+does not depend on PhaLinters. On newer HHVM versions, `test-project-modern` uses
+Facts/Watchman autoload, TestChain, and PhaLinters. The legacy autoloader and
+Facebook test dependencies are only installed in the HHVM 4.x fixture.
 
 ## Acknowledgements
 

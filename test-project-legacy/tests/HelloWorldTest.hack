@@ -6,6 +6,7 @@
  *  LICENSE file in the root directory of this source tree.
  *
  */
+namespace HTL\Actions;
 
 use type Facebook\HackTest\HackTest;
 use function Facebook\FBExpect\expect;

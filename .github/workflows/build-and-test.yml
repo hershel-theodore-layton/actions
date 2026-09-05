@@ -32,9 +32,13 @@ jobs:
       # No way to set working directory for a GitHub Action :(
       - name: Move test files to repository root
         shell: bash
+        env:
+          TEST_PROJECT: ${{ startsWith(matrix.hhvm, '4.') && 'test-project-legacy' || 'test-project-modern' }}
         run: |
           shopt -s dotglob
-          mv test-project/* .
+          mkdir -p "$RUNNER_TEMP/hack-action-fixtures"
+          mv test-project-legacy test-project-modern "$RUNNER_TEMP/hack-action-fixtures/"
+          mv "$RUNNER_TEMP/hack-action-fixtures/$TEST_PROJECT/"* .
       - name: Watchman Autoload Run
         uses: ./hack-lint-test
         with:
@@ -42,9 +46,14 @@ jobs:
           hhvm_flags: ${{ startsWith(matrix.hhvm, '4') && '-dhhvm.autoload.enabled=true -dhhvm.autoload.db.path=.var/facts.db' || '' }}
           skip_lint: ${{matrix.skip || matrix.hhvm == '4.102'}}
           skip_tests: ${{matrix.skip}}
-          lint_engine: pha
+          lint_engine: ${{ startsWith(matrix.hhvm, '4.') && 'hhast' || 'pha' }}
+          test_engine: ${{ startsWith(matrix.hhvm, '4.') && 'hacktest' || 'test-chain' }}
           typecheck_engine: ${{matrix.checker}}
+      - name: Verify native autoload
+        shell: bash
+        run: hhvm ${{ startsWith(matrix.hhvm, '4.') && '-dhhvm.autoload.enabled=true -dhhvm.autoload.db.path=.var/facts.db' || '' }} check-autoload.hack native
       - name: HHVM Autoload Run
+        if: startsWith(matrix.hhvm, '4.')
         uses: ./hack-lint-test
         with:
           hhvm: ${{matrix.hhvm}}
@@ -52,3 +61,7 @@ jobs:
           skip_tests: ${{matrix.skip}}
           lint_engine: hhast
           typecheck_engine: ${{matrix.checker}}
+      - name: Verify legacy autoload mode
+        if: startsWith(matrix.hhvm, '4.')
+        shell: bash
+        run: hhvm check-autoload.hack legacy
