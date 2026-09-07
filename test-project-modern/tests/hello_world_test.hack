@@ -2,8 +2,8 @@
 namespace HTL\Actions\Tests;
 
 use namespace HTL\TestChain;
-use function HTL\Expect\expect;
 use function HTL\Actions\hello_world;
+use function HTL\Expect\expect;
 
 <<TestChain\Discover>>
 function hello_world_test(TestChain\Chain $chain)[]: TestChain\Chain {
