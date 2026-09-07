@@ -1,1 +1,2 @@
 *.hhast.parser-cache
+/test-project-modern/vendor/
