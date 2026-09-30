@@ -18,11 +18,12 @@ inputs:
     default: false
   typecheck_engine:
     description: >
-      Optional. Can either be "hh_client" or "hh_server", defaults to "hh_client".
+      Optional. One of "hh_client", "hh_server", or "strict"; defaults to "hh_client".
       "hh_client" will use `hh_client` to typecheck, which reports errors only.
       "hh_server" will use `hh_server --check .`, which reports lint warnings but does not quit on them.
-      "strict" will use the strictest rules available, can be made stricter in the future. Quits on warnings.
-      "strict" is recommended, since it reports everything and quits your pipeline when it reports something.
+      "strict" runs `hh_server --check --json .` and fails on any reported diagnostic,
+      including warnings, as well as checker failures or invalid JSON output.
+      "strict" is recommended for projects that require warning-free typechecking.
       The default is "hh_client" for backwards compatibility.
     required: false
     default: "hh_client"

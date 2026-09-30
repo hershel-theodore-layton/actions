@@ -25,6 +25,28 @@ The default is `latest`.
 If already installed, `self-update` runs, including to downgrade to match your
 requested version.
 
+Set `typecheck_engine: strict` to fail CI on typechecker warnings as well as errors:
+
+```yaml
+- uses: hershel-theodore-layton/actions/hack-lint-test@master
+  with:
+    hhvm: "26.09.29"
+    typecheck_engine: strict
+```
+
+| Typecheck engine | Behavior |
+| --- | --- |
+| `hh_client` (default) | Uses `hh_client` and its exit status. |
+| `hh_server` | Runs `hh_server --check .`, which can report warnings while succeeding. |
+| `strict` | Runs `hh_server --check --json .` and fails on every reported diagnostic, including warnings. |
+
+Strict mode prints the diagnostics even when the checker exits with an error,
+and fails if the checker fails or returns invalid or incomplete JSON.
+It uses HHVM to read the result and does not require `jq`.
+Only diagnostics emitted by the installed typechecker can be caught; HHVM 4.x
+does not emit the newer redundant-assertion warnings.
+The choice of `lint_engine` is separate from typechecker strictness.
+
 This CI runner integrates with:
 
 - HHVM's original Open Source dependencies
