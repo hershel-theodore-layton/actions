@@ -19,7 +19,7 @@ jobs:
         hhvm: ["4.153", "4.168", "26.09.29"]
     runs-on: ubuntu-24.04
     container:
-      image: ${{ startsWith(matrix.hhvm, '4') && format('hhvm/hhvm:{0}-latest', matrix.hhvm) || format('hersheltheodorelayton/hhvm-full:{0}', matrix.hhvm) }}
+      image: ${{ startsWith(matrix.hhvm, '4') && format('hhvm/hhvm:{0}-latest', matrix.hhvm) || format('ghcr.io/hershel-theodore-layton/hhvm-images/hhvm-full:{0}', matrix.hhvm) }}
     steps:
       - uses: actions/checkout@v2
       - name: Verify typechecking modes and diagnostics
@@ -45,7 +45,7 @@ jobs:
             hhvm: "26.09.29"
     runs-on: ubuntu-24.04
     container:
-      image: ${{ startsWith(matrix.hhvm, '4') && format('hhvm/hhvm:{0}-latest', matrix.hhvm) || format('hersheltheodorelayton/hhvm-full:{0}', matrix.hhvm) }}
+      image: ${{ startsWith(matrix.hhvm, '4') && format('hhvm/hhvm:{0}-latest', matrix.hhvm) || format('ghcr.io/hershel-theodore-layton/hhvm-images/hhvm-full:{0}', matrix.hhvm) }}
     steps:
       - uses: actions/checkout@v2
       # No way to set working directory for a GitHub Action :(
