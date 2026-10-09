@@ -47,6 +47,23 @@ Only diagnostics emitted by the installed typechecker can be caught; HHVM 4.x
 does not emit the newer redundant-assertion warnings.
 The choice of `lint_engine` is separate from typechecker strictness.
 
+After the normal checks, the action also typechecks the production package.
+It replaces the checkout's files with a `git archive HEAD` export, honoring
+`.gitattributes` `export-ignore`, and removes the vendor directory and lockfile.
+It removes `require-dev` from the published `composer.json` before installing
+production dependencies, since a fresh `install --no-dev` otherwise still
+resolves development requirements. Development-specific manifests and
+dependencies cannot mask missing production types. Composer resolves against
+the installed HHVM version. Root Composer scripts and autoload generation are
+skipped. When `hhvm-autoload` is a production dependency, `vendor/autoload.hhi`
+forward declares the symbols normally supplied by its generated map. This
+checks types without executing an autoloader or restoring runtime configuration.
+The same `typecheck_engine` applies, using the project's `.hhconfig` even when
+that file is excluded from the package. Git metadata is retained. This is the
+final step: later workflow steps see the pruned package and production vendor
+directory, not the original development checkout.
+Set `skip_production_typecheck: true` if the workflow needs to defer this step.
+
 This CI runner integrates with:
 
 - HHVM's original Open Source dependencies

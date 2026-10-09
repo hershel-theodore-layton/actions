@@ -1,0 +1,24 @@
+<?hh // decl
+// actions is MIT licensed, see /LICENSE.
+// Declarations normally supplied by hhvm-autoload's generated autoload.hack.
+// Only for production typechecking; this file provides no runtime implementation.
+
+namespace Facebook\AutoloadMap\Generated {
+  function build_id(): string;
+  function root(): string;
+  function is_dev(): bool;
+  function map_uncached(): \Facebook\AutoloadMap\AutoloadMap;
+  function map(): \Facebook\AutoloadMap\AutoloadMap;
+}
+
+namespace Facebook\AutoloadMap\_Private {
+  final class GlobalState {
+    public static bool $initialized;
+  }
+
+  function bootstrap(): void;
+}
+
+namespace Facebook\AutoloadMap {
+  function initialize(): void;
+}

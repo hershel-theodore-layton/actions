@@ -16,6 +16,10 @@ inputs:
     description: 'Optional. Set to "true" to skip the hacktest step.'
     required: false
     default: false
+  skip_production_typecheck:
+    description: 'Set to "true" to skip the final check that prunes the checkout to package files and reinstalls production dependencies.'
+    required: false
+    default: false
   typecheck_engine:
     description: >
       Optional. One of "hh_client", "hh_server", or "strict"; defaults to "hh_client".
@@ -135,3 +139,10 @@ runs:
           "${{inputs.skip_tests}}" \
           "${{inputs.hhvm_flags}}" \
           "${{inputs.test_engine}}"
+    - name: Typecheck production package
+      if: inputs.skip_production_typecheck != 'true'
+      shell: bash
+      env:
+        COMPOSER_BINARY: ${{ steps.composer.outputs.binary }}
+      run: |
+        "${GITHUB_ACTION_PATH}/production-typecheck.sh" "${{inputs.typecheck_engine}}" "${{inputs.hhvm_flags}}"
