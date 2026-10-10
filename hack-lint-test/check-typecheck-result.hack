@@ -19,11 +19,13 @@ async function check_typecheck_result_main_async()[defaults]: Awaitable<void> {
       echo \json_encode(
         $result['errors'],
         \JSON_PRETTY_PRINT | \JSON_UNESCAPED_SLASHES,
-      )."\n";
+      ).
+        "\n";
       exit(1);
     }
     if (!$result['passed']) {
-      throw new \RuntimeException('hh_server reported an unsuccessful typecheck.');
+      throw
+        new \RuntimeException('hh_server reported an unsuccessful typecheck.');
     }
     echo "Typecheck passed with no diagnostics.\n";
   } catch (\Throwable $error) {
@@ -45,7 +47,8 @@ function decode_typecheck_result(string $input)[defaults]: mixed {
     \JSON_FB_HACK_ARRAYS,
   );
   if ($error is nonnull) {
-    throw new \RuntimeException('Invalid hh_server JSON: unable to decode output.');
+    throw
+      new \RuntimeException('Invalid hh_server JSON: unable to decode output.');
   }
   return $result;
 }

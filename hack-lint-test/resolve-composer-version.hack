@@ -5,7 +5,8 @@ use namespace HH\Asio;
 use namespace HH\Lib\{C, IO, Str};
 
 <<__EntryPoint>>
-async function resolve_composer_version_main_async()[defaults]: Awaitable<void> {
+async function resolve_composer_version_main_async(
+)[defaults]: Awaitable<void> {
   try {
     $argv = \HH\global_get('argv') as vec<_>;
     $selector = ($argv[1] ?? '') as string;
@@ -17,20 +18,22 @@ async function resolve_composer_version_main_async()[defaults]: Awaitable<void> 
       $contents = await Asio\curl_exec(
         'https://repo.packagist.org/p2/composer/composer.json',
       );
-      $metadata = ((): mixed ==> {
-        $error = null;
-        $decoded = \json_decode_with_error(
-          $contents,
-          inout $error,
-          true,
-          512,
-          \JSON_FB_HACK_ARRAYS,
-        );
-        if ($error is nonnull) {
-          throw new \RuntimeException('Invalid Composer release metadata.');
+      $metadata = (
+        (): mixed ==> {
+          $error = null;
+          $decoded = \json_decode_with_error(
+            $contents,
+            inout $error,
+            true,
+            512,
+            \JSON_FB_HACK_ARRAYS,
+          );
+          if ($error is nonnull) {
+            throw new \RuntimeException('Invalid Composer release metadata.');
+          }
+          return $decoded;
         }
-        return $decoded;
-      })() as dict<_, _>;
+      )() as dict<_, _>;
       $packages = $metadata['packages'] as dict<_, _>;
       $entries = $packages['composer/composer'] as vec<_>;
       foreach ($entries as $release) {
