@@ -49,8 +49,9 @@ The choice of `lint_engine` is separate from typechecker strictness.
 
 Set `lint_engine: pha-server` to run PhaLinters through its server launcher,
 which compiles the embedded bundle into an HHVM repository before linting.
-Install `hershel-theodore-layton/portable-hack-ast-linters-server` version 0.6
-or newer. The action starts a temporary server, requests lint results, and stops
+Install `hershel-theodore-layton/portable-hack-ast-linters-server` version 0.6.1
+or newer. The action uses `pha-linters-server.sh -e -d`, which returns once the
+daemon is ready. It requests lint results and stops
 it afterward. Lint diagnostics and HTTP failures fail the step.
 `hhvm_flags` applies to compilation and serving. `lint_args` accepts
 `lint-all [text|vscode-json] [directories]`, for example `lint-all text src,tests`.
