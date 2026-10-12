@@ -87,19 +87,7 @@ setsid env PATH="$WORK_DIR/bin:$PATH" \
   -e -d -p "$PORT" > "$WORK_DIR/server.log" 2>&1 &
 SERVER_PID=$!
 
-# Daemon mode returns only after the server is ready. Bound startup while
-# retaining process-group cleanup if compilation is interrupted.
-for attempt in {1..600}; do
-  if ! kill -0 "$SERVER_PID" 2>/dev/null; then
-    break
-  fi
-  sleep 0.1
-done
-if kill -0 "$SERVER_PID" 2>/dev/null; then
-  cat "$WORK_DIR/server.log"
-  echo 'Timed out waiting for the linter server.'
-  exit 1
-fi
+# Daemon mode returns only after the server is ready for its first request.
 if ! wait "$SERVER_PID"; then
   cat "$WORK_DIR/server.log"
   echo 'Linter server failed to start.'
