@@ -47,6 +47,15 @@ Only diagnostics emitted by the installed typechecker can be caught; HHVM 4.x
 does not emit the newer redundant-assertion warnings.
 The choice of `lint_engine` is separate from typechecker strictness.
 
+Set `lint_engine: pha-server` to run PhaLinters through its server launcher,
+which compiles the embedded bundle into an HHVM repository before linting.
+Install `hershel-theodore-layton/portable-hack-ast-linters-server` version 0.6
+or newer. The action starts a temporary server, requests lint results, and stops
+it afterward. Lint diagnostics and HTTP failures fail the step.
+`hhvm_flags` applies to compilation and serving. `lint_args` accepts
+`lint-all [text|vscode-json] [directories]`, for example `lint-all text src,tests`.
+The default `hhast` and direct `pha` modes remain available.
+
 After the normal checks, the action also typechecks the production package.
 It replaces the checkout's files with a `git archive HEAD` export, honoring
 `.gitattributes` `export-ignore`, and removes the vendor directory and lockfile.

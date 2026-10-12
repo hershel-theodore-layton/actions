@@ -33,9 +33,10 @@ inputs:
     default: "hh_client"
   lint_engine:
     description: >
-      Optional. Can either be "hhast" or "pha", defaults to "hhast".
+      Optional. One of "hhast", "pha", or "pha-server"; defaults to "hhast".
       "hhast" will invoke vendor/hhvm/hhast/bin/hhast-lint
       "pha" will invoke vendor/hershel-theodore-layton/portable-hack-ast-linters-server/bin/portable-hack-ast-linters-server-bundled.resource
+      "pha-server" runs pha-linters-server.sh -e and lints over HTTP using its compiled HHVM repository.
     required: false
     default: "hhast"
   test_engine:
