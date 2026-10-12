@@ -55,7 +55,7 @@ inputs:
       with directories as a comma-separated list (default: src,tests).
     required: false
   hhvm_flags:
-    description: "Optional. Command line arguments that will be added to all `hhvm` invocations (hh-autoload, hhast-lint, hacktest)."
+    description: "Optional. Command line arguments added to direct `hhvm` invocations (hh-autoload, hhast-lint, hacktest). Not used by pha-server."
     required: false
 runs:
   using: "composite"
