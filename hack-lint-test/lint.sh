@@ -43,7 +43,7 @@ elif [ "$ENGINE" = "pha" ]; then
   hhvm $FLAGS vendor/hershel-theodore-layton/portable-hack-ast-linters-server/bin/portable-hack-ast-linters-server-bundled.resource $ARGS
 )
 elif [ "$ENGINE" = "pha-server" ]; then
-  "$(dirname "$0")/lint-server.sh" "$FLAGS" "$ARGS"
+  "$(dirname "$0")/lint-server.sh" "$ARGS"
 else
   echo "Invalid lint_engine value: $ENGINE"
   exit 1
