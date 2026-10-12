@@ -83,7 +83,7 @@ if [ "$probe_status" != 7 ]; then
 fi
 
 setsid env PATH="$WORK_DIR/bin:$PATH" \
-  vendor/hershel-theodore-layton/portable-hack-ast-linters-server/bin/pha-linters-server.sh \
+  vendor/bin/pha-linters-server.sh \
   -e -d -p "$PORT" > "$WORK_DIR/server.log" 2>&1 &
 SERVER_PID=$!
 
